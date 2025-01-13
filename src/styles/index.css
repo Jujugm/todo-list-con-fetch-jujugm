@@ -51,6 +51,7 @@ body {color: gray}
 
 p{
     text-align: left;
+    margin-top: 5%;
 }
 .list-group-item:hover .delete-click {
   display: block; /* Mostrar solo cuando se posiciona en el elemento */
