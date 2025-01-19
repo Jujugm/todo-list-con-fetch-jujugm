@@ -16,11 +16,12 @@ const Home = () => {
 
 	function handleTask(event) {
 
-		if (event.keyCode === 13) {
+		if (event.keyCode===13) {
 		crearTarea(task)
-		}
 		getLista()
-
+		
+	}
+		
 		// setTask("");
 		// setTaskList([TaskList, task]);
 	}
@@ -65,7 +66,7 @@ const Home = () => {
 
 		fetch("https://playground.4geeks.com/todo/users/jujugm", requestOptions)
 			.then((response) => {
-				if (response.status === 404) {
+				if (response.status == 404) {
 					// se crea el usuario
 					createUser()
 					// y se trae la tarea
@@ -116,33 +117,40 @@ const Home = () => {
 
 	}, [])
 
+function handleSubmit(event) {
+	event.preventDefault(); //Evita el recargar la pagina
+
+	getLista();
+	setTask("");
+} 
 	return (
 		<div className="container">
 			<h1>To-Do List</h1>
+
+			<form onSubmit={handleSubmit}>
 
 			<div className="input-group input-group-lg">
 				<input type="text"
 					className="form-control"
 					aria-label="Large" aria-describedby="inputGroup-sizing-sm"
+					value={task} // Aseguro que el input está sincronizado con el estado
 					onChange={(event) => setTask(event.target.value)}
 					onKeyDown={handleTask}
-
 				/>
 			</div>
+			</form>
 
 
 
 			<div className="listgroup">
 				<ul className="list-group ">
-					{traerLista.map((item, index) => <li id= {item.id} className="list-group-item">{item.label}
+					{traerLista.map((item) => <li id= {item.id} className="list-group-item">{item.label}
 						<span
 							className="delete-click"
 							onClick={() => {
 								borrarTarea(item.id) 
 								getLista()
-								}}
-							
-						>
+								}}>
 							X
 						</span></li>)}
 					{/* Mapear taskList para que se generen nuevos li uno debajo de otro
